@@ -1,0 +1,140 @@
+
+body { 
+  font-family: sans-serif; 
+}
+
+nav {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e7e7e7;
+  font-family: sans-serif;
+}
+
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+
+nav ul li a {
+  text-decoration: none;
+  color: #007bff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav ul li a:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  text-decoration: none; 
+}
+
+
+.tender-details, .offers-section, .add-offer-form {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.tender-details h1 { margin-top: 0; }
+
+.offers-list { list-style: none; padding: 0; }
+
+.offers-list li { border-bottom: 1px dotted #ccc; padding: 10px 0; }
+
+.offers-list li:last-child { border-bottom: none; }
+
+label { display: block; margin-bottom: 5px; }
+
+input[type="text"], input[type="number"], textarea {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+button:hover { background-color: #0056b3; }
+.error { color: red; margin-bottom: 10px; }
+.no-offers { color: #777; }
+
+.tenders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+
+.tenders-table th {
+  background-color: #f2f2f2; 
+  border-bottom: 2px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+
+.tenders-table td {
+  border-bottom: 1px solid #eee;
+  padding: 10px 15px;
+}
+
+
+.tenders-table tr {
+  transition: background-color 0.2s ease;
+}
+
+.tenders-table tbody tr:hover {
+  background-color: #f5f5f5; 
+}
+
+
+.tenders-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+.tenders-table tbody tr:nth-child(even):hover {
+  background-color: #f0f0f0;
+}
+
+
+
+.tenders-table td a {
+  color: #007bff; 
+  text-decoration: none;
+  padding: 5px 8px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tenders-table td a:hover {
+  text-decoration: none; 
+  background-color: #007bff;
+  color: white;
+}

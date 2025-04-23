@@ -1,0 +1,28 @@
+<% if (typeof tenders !== 'undefined' && tenders.length > 0) { %>
+    <table class = "tenders-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Orderer</th>
+                <th>Max Price</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tenders.forEach(tender => { %>
+                <tr>
+                    <td><%= tender.name %></td>
+                    <td><%= tender.orderer %></td>
+                    <td><%= tender.max_price ? tender.max_price : 'N/A' %></td>
+                    <td><%= new Date(tender.start_time).toLocaleString() %></td>
+                    <td><%= new Date(tender.end_time).toLocaleString() %></td>
+                    <td><a href="/tenders/<%= tender.id %>">View Details</a></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>No tenders found.</p>
+<% } %>
