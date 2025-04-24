@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var tendersController = require('../controllers/TenderController');
+var offerController = require('../controllers/OfferController');
 
 /* GET current tenders. */
 router.get('/', function(req, res, next) {
@@ -21,6 +22,14 @@ router.post('/new', function(req, res, next) {
 /* GET tender by ID. */
 router.get('/:id', function(req, res, next) {
   tendersController.findById(req, res, next);
+});
+/* GET offers by tender ID. */
+router.get('/:id/offers', function(req, res, next) {
+  offerController.findByTenderId(req, res, next);
+});
+/* POST offer by tender ID. */
+router.post('/:id/offers', function(req, res, next) {
+  tendersController.addOfferByTenderId(req, res, next);
 });
 
 module.exports = router;

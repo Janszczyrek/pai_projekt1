@@ -10,12 +10,11 @@
             <h1><%= tender.name %></h1>
             <p><strong>Orderer:</strong> <%= tender.orderer %></p>
             <p><strong>Description:</strong> <%= tender.description || 'No description provided.' %></p>
-            <p><strong>Maximum Price:</strong> <%= tender.max_price ? tender.max_price : 'Not specified' %></p>
             <p><strong>Starts:</strong> <%= new Date(tender.start_time).toLocaleString() %></p>
             <p><strong>Ends:</strong> <%= new Date(tender.end_time).toLocaleString() %></p>
         </div>
 
-        <% const isTenderActive = new Date(tender.end_time) > new Date(); %>
+        <% const isTenderActive = new Date(tender.end_time) > new Date() && new Date(tender.start_time) < new Date() ; %>
 
         <% if (isTenderActive) { %>
             <div class="add-offer-form">
@@ -28,34 +27,29 @@
                     </div>
                     <div>
                         <label for="price">Your Offer Price:</label>
-                        <input type="number" id="price" name="price" step="0.01" required <% if (tender.max_price) { %> max="<%= tender.max_price %>" <% } %>>
-                        <% if (tender.max_price) { %>
-                            <small>(Maximum allowed: <%= tender.max_price %>)</small>
-                        <% } %>
+                        <input type="number" id="price" name="price" step="0.01" required>
                     </div>
                     <button type="submit">Place Offer</button>
                 </form>
             </div>
         <% } else { %>
-            <p><em>This tender has ended. No more offers can be placed.</em></p>
+            <div class="offers-section">
+                <h2>Submitted Offers</h2>
+                <% if (typeof offers !== 'undefined' && offers.length > 0) { %>
+                    <ul class="offers-list">
+                        <% offers.forEach(offer => { %>
+                            <li>
+                                <strong>Offerer:</strong> <%= offer.offerer_name %><br>
+                                <strong>Price:</strong> <%= offer.price %><br>
+                                <strong>Placed At:</strong> <%= new Date(offer.placed_at).toLocaleString() %>
+                            </li>
+                        <% }); %>
+                    </ul>
+                <% } else { %>
+                    <p class="no-offers">No offers below maximum price have been submitted for this tender.</p>
+                <% } %>
+            </div>
         <% } %>
-
-        <div class="offers-section">
-            <h2>Submitted Offers</h2>
-            <% if (typeof offers !== 'undefined' && offers.length > 0) { %>
-                <ul class="offers-list">
-                    <% offers.forEach(offer => { %>
-                        <li>
-                            <strong>Offerer:</strong> <%= offer.offerer_name %><br>
-                            <strong>Price:</strong> <%= offer.price %><br>
-                            <strong>Placed At:</strong> <%= new Date(offer.placed_at).toLocaleString() %>
-                        </li>
-                    <% }); %>
-                </ul>
-            <% } else { %>
-                <p class="no-offers">No offers have been submitted for this tender yet.</p>
-            <% } %>
-        </div>
 
     <% } else { %>
         <h1>Tender Not Found</h1>

@@ -1,4 +1,5 @@
 const Tender = require('../models/Tender');
+const Offer = require('../models/Offer');
 
 exports.listActive = (req, res, next) => {
     Tender.findActive((err, tenders) => {
@@ -28,9 +29,10 @@ exports.create = (req, res, next) => {
         orderer: orderer,
         max_price: max_price || null,
         description: description,
-        end_time: end_time,
-        start_time: start_time
+        end_time: end_time.split('T')[0] + ' ' + end_time.split('T')[1] + ":00",
+        start_time: start_time.split('T')[0] + ' ' + start_time.split('T')[1] + ":00" 
     };
+    console.log(tenderData);
 
     Tender.create(tenderData, (err, result) => {
         if (err) {
@@ -47,8 +49,48 @@ exports.findById = (req, res, next) => {
             return next(err);
         }
         if (!tender) {
-            return res.status(404).send('Tender not found');
+            return res.status(404).render('landing');
         }
-        res.render('tenderDetails', { tender: tender });
+        if (new Date(tender.start_time) > new Date()) {
+            return res.status(404).render('landing');
+        }
+        Offer.findByTenderId(tenderId, (err, offers) => {
+            if (err) {
+                return next(err);
+            }
+            res.render('tenderDetails', { tender: tender, offers: offers });
+        });
+    });
+}
+exports.addOfferByTenderId = (req, res, next) => {
+    const tenderId = req.params.id;
+    const { offerer_name, price } = req.body;
+    if (!offerer_name || !price) {
+        return res.render('newOffer');
+    }
+    Tender.findById(tenderId, (err, tender) => {
+        if (err) {
+            return next(err);
+        }
+        if (!tender) {
+            return res.status(404).render('landing');
+        }
+        if (new Date(tender.start_time) > new Date()) {
+            return res.status(404).render('landing');
+        }
+        if (new Date(tender.end_time) < new Date()) {
+            return res.status(404).render('landing');
+        }
+        const offerData = {
+            tender_id: tenderId,
+            user_id: offerer_name,
+            price: price
+        };
+        Offer.create(offerData, (err, result) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect(`/tenders/${tenderId}`);
+        });
     });
 }

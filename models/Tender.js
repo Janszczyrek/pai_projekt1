@@ -7,12 +7,12 @@ class Tender {
     }
 
     static findActive(callback) {
-        const sql = "SELECT * FROM tenders WHERE datetime(end_time) > CURRENT_TIMESTAMP AND datetime(start_time) < CURRENT_TIMESTAMP ORDER BY end_time ASC";
+        const sql = "SELECT * FROM tenders WHERE datetime(end_time) > datetime('now', 'localtime') AND datetime(start_time) < datetime('now', 'localtime') ORDER BY end_time ASC";
         db.all(sql, [], callback);
     }
 
     static findPast(callback) {
-        const sql = "SELECT * FROM tenders WHERE datetime(end_time) <= CURRENT_TIMESTAMP ORDER BY end_time DESC";
+        const sql = "SELECT * FROM tenders WHERE datetime(end_time) <= datetime('now', 'localtime') ORDER BY end_time DESC";
         db.all(sql, [], callback);
     }
 
