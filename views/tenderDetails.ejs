@@ -19,7 +19,6 @@
         <% if (isTenderActive) { %>
             <div class="add-offer-form">
                 <h2>Submit Your Offer</h2>
-                <!-- Form posts to a route like /tenders/:tenderId/offers -->
                 <form action="/tenders/<%= tender.id %>/offers" method="POST">
                     <div>
                         <label for="offerer_name">Your Name:</label>
