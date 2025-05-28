@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://mcr.microsoft.com/
-        username: ${{ secrets.AzureAppService_ContainerUsername_49e8ffe0897e41b49853933a28add799 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_f28e348ae6b4415982f0611e2b66b001 }}
+        registry: https://ghcr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_bc7529efc5e64c67a58486f146a4b980 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_dd85f15e23984f4096635ab3bf130e64 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_49e8ffe0897e41b49853933a28add799 }}/appsvc/staticsite:${{ github.sha }}
+        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_bc7529efc5e64c67a58486f146a4b980 }}/Janszczyrek/tender:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'tenders-ebiznes'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_55b31dd995a141eaa6eddcd103845599 }}
-        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_49e8ffe0897e41b49853933a28add799 }}/appsvc/staticsite:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_03d758985aa84e83969a72624acfb5ec }}
+        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_bc7529efc5e64c67a58486f146a4b980 }}/Janszczyrek/tender:${{ github.sha }}'
