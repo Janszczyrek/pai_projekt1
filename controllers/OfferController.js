@@ -31,3 +31,12 @@ exports.findByTenderId = (req, res, next) => {
         res.render('OfferDetails', { Offers: Offers });
     });
 }
+
+exports.deleteAll = (req, res, next) => {
+    Offer.deleteAll((err, result) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+}

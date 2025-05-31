@@ -35,6 +35,13 @@ class Tender {
             callback(err, { changes: this ? this.changes : 0 });
         });
     }
+
+    static deleteAll(callback) {
+        const sql = "DELETE FROM tenders WHERE 1 = 1";
+        db.run(sql, [], function(err) {
+            callback(err, { changes: this ? this.changes : 0 });
+        });
+    }
 }
 
 module.exports = Tender;

@@ -13,6 +13,12 @@ class Offer {
             callback(err, { id: this ? this.lastID : null });
         });
     }
+    static deleteAll(callback) {
+        const sql = "DELETE FROM offers WHERE 1 = 1";
+        db.run(sql, [], function(err) {
+            callback(err, { changes: this ? this.changes : 0 });
+        });
+    }
 
 }
 

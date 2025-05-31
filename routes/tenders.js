@@ -31,5 +31,10 @@ router.get('/:id/offers', function(req, res, next) {
 router.post('/:id/offers', function(req, res, next) {
   tendersController.addOfferByTenderId(req, res, next);
 });
+/* DELETE all tenders */
+router.delete('/', function(req, res, next) {
+  tendersController.deleteAll(req, res, next);
+});
+
 
 module.exports = router;

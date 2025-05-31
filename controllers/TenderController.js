@@ -29,8 +29,8 @@ exports.create = (req, res, next) => {
         orderer: orderer,
         max_price: max_price || null,
         description: description,
-        end_time: end_time.split('T')[0] + ' ' + end_time.split('T')[1] + ":00",
-        start_time: start_time.split('T')[0] + ' ' + start_time.split('T')[1] + ":00" 
+        end_time: end_time.replace('T', ' '),
+        start_time: start_time.replace('T', ' ')
     };
     console.log(tenderData);
 
@@ -92,5 +92,13 @@ exports.addOfferByTenderId = (req, res, next) => {
             }
             res.redirect(`/tenders/${tenderId}`);
         });
+    });
+}
+exports.deleteAll = (req, res, next) => {
+    Tender.deleteAll((err, result) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
     });
 }
